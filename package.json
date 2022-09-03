@@ -1,0 +1,16 @@
+{
+  "name": "eligibility-check",
+  "version": "1.0.0",
+  "description": "It checks customer's eligibility",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/server.js"
+  },
+  "keywords": [],
+  "author": "Igor dos Santos Silva",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.1"
+  }
+}
