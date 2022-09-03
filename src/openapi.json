@@ -1,0 +1,265 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Customer Eligibility Check API",
+    "description": "This api checks customer eligibility based on his electricity bill.",
+    "termsOfService": "https://www.energialemon.com.br/termos-de-uso",
+    "contact": {
+      "email": "osilvaigor@gmail.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/check-eligibility": {
+      "post": {
+        "summary": "Eligibility check",
+        "description": "This route will receive the electricity bill details and check the customer eligibility",
+        "tags": [
+          "v1"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/detalhesDaContaDeLuz"
+              },
+              "examples": {
+                "elegivel": {
+                  "value": {
+                    "numeroDoDocumento": "14041737706",
+                    "tipoDeConexao": "bifasico",
+                    "classeDeConsumo": "comercial",
+                    "modalidadeTarifaria": "convencional",
+                    "historicoDeConsumo": [
+                      3878,
+                      9760,
+                      5976,
+                      2797,
+                      2481,
+                      5731,
+                      7538,
+                      4392,
+                      7859,
+                      4160,
+                      6941,
+                      4597
+                    ]
+                  }
+                },
+                "naoElegivel": {
+                  "value": {
+                    "numeroDoDocumento": "14041737706",
+                    "tipoDeConexao": "bifasico",
+                    "classeDeConsumo": "rural",
+                    "modalidadeTarifaria": "verde",
+                    "historicoDeConsumo": [
+                      3878,
+                      9760,
+                      5976,
+                      2797,
+                      2481,
+                      5731,
+                      7538,
+                      4392,
+                      7859,
+                      4160
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Invalid request. Check the fields!"
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/elegivel"
+                    },
+                    {
+                      "$ref": "#/components/schemas/naoElegivel"
+                    }
+                  ]
+                },
+                "examples": {
+                  "elegivel": {
+                    "value": {
+                      "elegivel": true,
+                      "economiaAnualDeCO2": 5553.24
+                    }
+                  },
+                  "naoElegivel": {
+                    "value": {
+                      "elegivel": false,
+                      "razoesInelegibilidade": [
+                        "Classe de consumo não aceita",
+                        "Modalidade tarifária não aceita"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "detalhesDaContaDeLuz": {
+        "type": "object",
+        "properties": {
+          "numeroDoDocumento": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/cpf"
+              },
+              {
+                "$ref": "#/components/schemas/cnpj"
+              }
+            ]
+          },
+          "tipoDeConexao": {
+            "$ref": "#/components/schemas/tiposDeConexao"
+          },
+          "classeDeConsumo": {
+            "$ref": "#/components/schemas/classeDeConsumo"
+          },
+          "modalidadeTarifaria": {
+            "$ref": "#/components/schemas/modalidadesTarifarias"
+          },
+          "historicoDeConsumo": {
+            "$ref": "#/components/schemas/historicoDeConsumo"
+          }
+        },
+        "required": [
+          "numeroDoDocumento",
+          "tipoDeConexao",
+          "classeDeConsumo",
+          "modalidadeTarifaria",
+          "historicoDeConsumo"
+        ]
+      },
+      "cpf": {
+        "type": "string",
+        "pattern": "^\\d{11}$",
+        "example": "21554495008"
+      },
+      "cnpj": {
+        "type": "string",
+        "pattern": "^\\d{14}$",
+        "example": "33400689000109"
+      },
+      "tiposDeConexao": {
+        "type": "string",
+        "enum": [
+          "monofasico",
+          "bifasico",
+          "trifasico"
+        ],
+        "example": "monofasico"
+      },
+      "classeDeConsumo": {
+        "type": "string",
+        "enum": [
+          "residencial",
+          "industrial",
+          "comercial",
+          "rural",
+          "poderPublico"
+        ],
+        "example": "residencial"
+      },
+      "modalidadesTarifarias": {
+        "type": "string",
+        "enum": [
+          "azul",
+          "branca",
+          "verde",
+          "convencional"
+        ],
+        "example": "azul"
+      },
+      "historicoDeConsumo": {
+        "type": "array",
+        "minItems": 3,
+        "maxItems": 12,
+        "items": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9999
+        }
+      },
+      "respostaDaAnaliseDeElegibilidade": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/elegivel"
+          },
+          {
+            "$ref": "#/components/schemas/naoElegivel"
+          }
+        ]
+      },
+      "elegivel": {
+        "type": "object",
+        "properties": {
+          "elegivel": {
+            "type": "boolean",
+            "enum": [
+              true
+            ]
+          },
+          "economiaAnualDeCO2": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 9999
+          }
+        },
+        "required": [
+          "elegivel",
+          "economiaAnualDeCO2"
+        ]
+      },
+      "naoElegivel": {
+        "type": "object",
+        "properties": {
+          "elegivel": {
+            "type": "boolean",
+            "enum": [
+              false
+            ]
+          },
+          "razoesDaInelegibilidade": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "enum": [
+                "Classe de consumo não aceita",
+                "Modalidade tarifária não aceita",
+                "Consumo muito baixo para tipo de conexão"
+              ]
+            }
+          }
+        },
+        "required": [
+          "elegivel",
+          "razoesDaInelegibilidade"
+        ]
+      }
+    }
+  }
+}
