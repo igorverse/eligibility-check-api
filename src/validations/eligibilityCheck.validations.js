@@ -1,31 +1,31 @@
-const isElegibleConsumptionClass = (consumptionClass) => {
-  const elegiblesConsumptionClasses = ['comercial', 'residencial', 'industrial']
+const isEligibleConsumptionClass = (consumptionClass) => {
+  const eligiblesConsumptionClasses = ['comercial', 'residencial', 'industrial']
 
-  return elegiblesConsumptionClasses.includes(consumptionClass)
+  return eligiblesConsumptionClasses.includes(consumptionClass)
 }
 
-const isElegibleTariffModality = (tariffModality) => {
-  const elegibleTarfiffModalities = ['convencional', 'branca']
+const isEligibleTariffModality = (tariffModality) => {
+  const eligibleTarfiffModalities = ['convencional', 'branca']
 
-  return elegibleTarfiffModalities.includes(tariffModality)
+  return eligibleTarfiffModalities.includes(tariffModality)
 }
 
-const isElegibleMinimumConsumption = (connectionType, consumptionHistory) => {
+const isEligibleMinimumConsumption = (connectionType, consumptionHistory) => {
   const averageConsumption =
     consumptionHistory.reduce((acc, curr) => acc + curr) /
     consumptionHistory.length
 
-  const minimiumConsumtionMatch = {
+  const minimiumConsumptionMatch = {
     monofasica: averageConsumption > 400,
     bifasica: averageConsumption > 500,
     trifasica: averageConsumption > 750,
   }
 
-  return minimiumConsumtionMatch[connectionType]
+  return minimiumConsumptionMatch[connectionType]
 }
 
 module.exports = {
-  isElegibleConsumptionClass,
-  isElegibleTariffModality,
-  isElegibleMinimumConsumption,
+  isEligibleConsumptionClass,
+  isEligibleTariffModality,
+  isEligibleMinimumConsumption,
 }
