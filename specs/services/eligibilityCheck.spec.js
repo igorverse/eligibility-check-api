@@ -27,7 +27,7 @@ describe('Customers with eligibility', () => {
     ]
 
     expect(
-      services.isEligibleMinimumConsumption('monofasica', consumptionHistory)
+      services.isEligibleMinimumConsumption('monofasico', consumptionHistory)
     ).toBe(true)
   })
 
@@ -37,7 +37,7 @@ describe('Customers with eligibility', () => {
     ]
 
     expect(
-      services.isEligibleMinimumConsumption('bifasica', consumptionHistory)
+      services.isEligibleMinimumConsumption('bifasico', consumptionHistory)
     ).toBe(true)
   })
 
@@ -47,7 +47,7 @@ describe('Customers with eligibility', () => {
     ]
 
     expect(
-      services.isEligibleMinimumConsumption('trifasica', consumptionHistory)
+      services.isEligibleMinimumConsumption('trifasico', consumptionHistory)
     ).toBe(true)
   })
 })
@@ -75,7 +75,7 @@ describe('Customers without eligibility', () => {
     ]
 
     expect(
-      services.isEligibleMinimumConsumption('monofasica', consumptionHistory)
+      services.isEligibleMinimumConsumption('monofasico', consumptionHistory)
     ).toBe(false)
   })
 
@@ -85,7 +85,7 @@ describe('Customers without eligibility', () => {
     ]
 
     expect(
-      services.isEligibleMinimumConsumption('bifasica', consumptionHistory)
+      services.isEligibleMinimumConsumption('bifasico', consumptionHistory)
     ).toBe(false)
   })
 
@@ -95,7 +95,7 @@ describe('Customers without eligibility', () => {
     ]
 
     expect(
-      services.isEligibleMinimumConsumption('trifasica', consumptionHistory)
+      services.isEligibleMinimumConsumption('trifasico', consumptionHistory)
     ).toBe(false)
   })
 })

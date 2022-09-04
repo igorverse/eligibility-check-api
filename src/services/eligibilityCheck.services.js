@@ -16,9 +16,9 @@ const isEligibleMinimumConsumption = (connectionType, consumptionHistory) => {
     consumptionHistory.length
 
   const minimiumConsumptionMatch = {
-    monofasica: averageConsumption > 400,
-    bifasica: averageConsumption > 500,
-    trifasica: averageConsumption > 750,
+    monofasico: averageConsumption > 400,
+    bifasico: averageConsumption > 500,
+    trifasico: averageConsumption > 750,
   }
 
   return minimiumConsumptionMatch[connectionType]
