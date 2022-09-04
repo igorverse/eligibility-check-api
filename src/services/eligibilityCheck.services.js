@@ -47,9 +47,22 @@ const determineIneligibilityReasons = (
   return ineligibilityReasons
 }
 
+const calculateCO2AnnualSavings = (consumptionHistory) => {
+  const averageConsumption =
+    consumptionHistory.reduce((acc, curr) => acc + curr) /
+    consumptionHistory.length
+
+  const averageEmissionFor100kWh = (averageConsumption * 84) / 1000
+
+  const annualCO2Savings = (averageEmissionFor100kWh * 12).toFixed(2)
+
+  return Number(annualCO2Savings)
+}
+
 module.exports = {
   isEligibleConsumptionClass,
   isEligibleTariffModality,
   isEligibleMinimumConsumption,
   determineIneligibilityReasons,
+  calculateCO2AnnualSavings,
 }

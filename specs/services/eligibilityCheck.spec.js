@@ -50,6 +50,20 @@ describe('Customers with eligibility', () => {
       services.isEligibleMinimumConsumption('trifasico', consumptionHistory)
     ).toBe(true)
   })
+
+  it('should return annual CO2 savings for 12 consumption records', () => {
+    const consumptionHistory = [
+      3878, 9760, 5976, 2797, 2481, 5731, 7538, 4392, 7859, 4160, 6941, 4597,
+    ]
+
+    expect(services.calculateCO2AnnualSavings(consumptionHistory)).toBe(5553.24)
+  })
+
+  it('should return annual CO2 savings for 3 consumption records', () => {
+    const consumptionHistory = [3878, 9760, 5976]
+
+    expect(services.calculateCO2AnnualSavings(consumptionHistory)).toBe(6590.3)
+  })
 })
 
 describe('Customers without eligibility', () => {
