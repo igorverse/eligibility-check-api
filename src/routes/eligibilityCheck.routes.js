@@ -1,4 +1,5 @@
 const express = require('express')
+const eligibilityCheckController = require('../controllers/eligibilityCheck.controllers')
 const {
   validateEligibilityCheckBody,
 } = require('../middlewares/eligibilityCheck.middlewares')
@@ -9,7 +10,7 @@ eligibilityCheckRouter.post(
   '/check-eligibility',
   validateEligibilityCheckBody,
   (req, res) => {
-    return res.json('not implementd yet')
+    eligibilityCheckController.handle(req, res)
   }
 )
 
