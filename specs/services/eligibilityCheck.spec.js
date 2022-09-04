@@ -69,7 +69,7 @@ describe('Customers without eligibility', () => {
     }
   })
 
-  it('should be an eligible minimum consumption for single-phase connection', () => {
+  it('should not be an eligible minimum consumption for single-phase connection', () => {
     const consumptionHistory = [
       300, 320, 399, 305, 421, 442, 499, 345, 353, 315, 410, 555,
     ]
@@ -79,7 +79,7 @@ describe('Customers without eligibility', () => {
     ).toBe(false)
   })
 
-  it('should be an eligible minimum consumption for two-phase connection', () => {
+  it('should not be an eligible minimum consumption for two-phase connection', () => {
     const consumptionHistory = [
       300, 400, 499, 600, 500, 549, 543, 345, 453, 534, 410, 555,
     ]
@@ -89,7 +89,7 @@ describe('Customers without eligibility', () => {
     ).toBe(false)
   })
 
-  it('should be an eligible minimum consumption for three-phase connection', () => {
+  it('should not be an eligible minimum consumption for three-phase connection', () => {
     const consumptionHistory = [
       1004, 900, 499, 600, 500, 549, 543, 345, 453, 534, 1000, 555,
     ]
@@ -97,5 +97,60 @@ describe('Customers without eligibility', () => {
     expect(
       services.isEligibleMinimumConsumption('trifasico', consumptionHistory)
     ).toBe(false)
+  })
+
+  it('should return one ineligible reason', () => {
+    const [
+      eligibleConsumptionClass,
+      eligibleTarfiffModallity,
+      eligibleMinimumConsumption,
+    ] = [true, false, true]
+
+    expect(
+      services.determineIneligibilityReasons(
+        eligibleConsumptionClass,
+        eligibleTarfiffModallity,
+        eligibleMinimumConsumption
+      )
+    ).toEqual(['Modalidade tarifária não aceita'])
+  })
+
+  it('should return two ineligible reasons', () => {
+    const [
+      eligibleConsumptionClass,
+      eligibleTarfiffModallity,
+      eligibleMinimumConsumption,
+    ] = [false, false, true]
+
+    expect(
+      services.determineIneligibilityReasons(
+        eligibleConsumptionClass,
+        eligibleTarfiffModallity,
+        eligibleMinimumConsumption
+      )
+    ).toEqual([
+      'Classe de consumo não aceita',
+      'Modalidade tarifária não aceita',
+    ])
+  })
+
+  it('should return three ineligible reasons', () => {
+    const [
+      eligibleConsumptionClass,
+      eligibleTarfiffModallity,
+      eligibleMinimumConsumption,
+    ] = [false, false, false]
+
+    expect(
+      services.determineIneligibilityReasons(
+        eligibleConsumptionClass,
+        eligibleTarfiffModallity,
+        eligibleMinimumConsumption
+      )
+    ).toEqual([
+      'Classe de consumo não aceita',
+      'Modalidade tarifária não aceita',
+      'Consumo muito baixo para tipo de conexão',
+    ])
   })
 })
