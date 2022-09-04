@@ -15,9 +15,7 @@ const isValidEligibilityCheckBody = (body) => {
 
   const isValidConnectionType =
     tipoDeConexao &&
-    ['monofasico', 'bifasico', 'trifasico'].includes(
-      tipoDeConexao.toLowerCase()
-    )
+    ['monofasico', 'bifasico', 'trifasico'].includes(tipoDeConexao)
 
   if (!isValidConnectionType) return false
 
@@ -29,15 +27,13 @@ const isValidEligibilityCheckBody = (body) => {
       'comercial',
       'rural',
       'poderPublico',
-    ].includes(classeDeConsumo.toLowerCase())
+    ].includes(classeDeConsumo)
 
   if (!isValidConsumptionClass) return false
 
   const isValidTarfiffModality =
     modalidadeTarifaria &&
-    ['azul', 'branca', 'verde', 'convencional'].includes(
-      modalidadeTarifaria.toLowerCase()
-    )
+    ['azul', 'branca', 'verde', 'convencional'].includes(modalidadeTarifaria)
 
   if (!isValidTarfiffModality) return false
 
