@@ -1,4 +1,4 @@
-const services = require('../src/services/eligibilityCheck.services')
+const services = require('../../src/services/eligibilityCheck.services')
 
 describe('Customers with eligibility', () => {
   it('should be an eligible consumption class', () => {
