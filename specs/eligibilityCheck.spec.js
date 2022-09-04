@@ -1,4 +1,4 @@
-const validations = require('../src/validations/eligibilityCheck.validations')
+const services = require('../src/services/eligibilityCheck.services')
 
 describe('Customers with eligibility', () => {
   it('should be an eligible consumption class', () => {
@@ -9,9 +9,7 @@ describe('Customers with eligibility', () => {
     ]
 
     for (const consumptionClass of eligiblesConsumptionClasses) {
-      expect(validations.isEligibleConsumptionClass(consumptionClass)).toBe(
-        true
-      )
+      expect(services.isEligibleConsumptionClass(consumptionClass)).toBe(true)
     }
   })
 
@@ -19,7 +17,7 @@ describe('Customers with eligibility', () => {
     const eligibleTarfiffModalities = ['convencional', 'branca']
 
     for (const tariffModality of eligibleTarfiffModalities) {
-      expect(validations.isEligibleTariffModality(tariffModality)).toBe(true)
+      expect(services.isEligibleTariffModality(tariffModality)).toBe(true)
     }
   })
 
@@ -29,7 +27,7 @@ describe('Customers with eligibility', () => {
     ]
 
     expect(
-      validations.isEligibleMinimumConsumption('monofasica', consumptionHistory)
+      services.isEligibleMinimumConsumption('monofasica', consumptionHistory)
     ).toBe(true)
   })
 
@@ -39,7 +37,7 @@ describe('Customers with eligibility', () => {
     ]
 
     expect(
-      validations.isEligibleMinimumConsumption('bifasica', consumptionHistory)
+      services.isEligibleMinimumConsumption('bifasica', consumptionHistory)
     ).toBe(true)
   })
 
@@ -49,7 +47,7 @@ describe('Customers with eligibility', () => {
     ]
 
     expect(
-      validations.isEligibleMinimumConsumption('trifasica', consumptionHistory)
+      services.isEligibleMinimumConsumption('trifasica', consumptionHistory)
     ).toBe(true)
   })
 })
@@ -59,9 +57,7 @@ describe('Customers without eligibility', () => {
     const eligiblesConsumptionClasses = ['rural', 'poderPublico']
 
     for (const consumptionClass of eligiblesConsumptionClasses) {
-      expect(validations.isEligibleConsumptionClass(consumptionClass)).toBe(
-        false
-      )
+      expect(services.isEligibleConsumptionClass(consumptionClass)).toBe(false)
     }
   })
 
@@ -69,7 +65,7 @@ describe('Customers without eligibility', () => {
     const eligibleTarfiffModalities = ['azul', 'verde']
 
     for (const tariffModality of eligibleTarfiffModalities) {
-      expect(validations.isEligibleTariffModality(tariffModality)).toBe(false)
+      expect(services.isEligibleTariffModality(tariffModality)).toBe(false)
     }
   })
 
@@ -79,7 +75,7 @@ describe('Customers without eligibility', () => {
     ]
 
     expect(
-      validations.isEligibleMinimumConsumption('monofasica', consumptionHistory)
+      services.isEligibleMinimumConsumption('monofasica', consumptionHistory)
     ).toBe(false)
   })
 
@@ -89,7 +85,7 @@ describe('Customers without eligibility', () => {
     ]
 
     expect(
-      validations.isEligibleMinimumConsumption('bifasica', consumptionHistory)
+      services.isEligibleMinimumConsumption('bifasica', consumptionHistory)
     ).toBe(false)
   })
 
@@ -99,7 +95,7 @@ describe('Customers without eligibility', () => {
     ]
 
     expect(
-      validations.isEligibleMinimumConsumption('trifasica', consumptionHistory)
+      services.isEligibleMinimumConsumption('trifasica', consumptionHistory)
     ).toBe(false)
   })
 })
