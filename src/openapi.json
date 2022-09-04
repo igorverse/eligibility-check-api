@@ -14,7 +14,7 @@
     "version": "1.0.0"
   },
   "paths": {
-    "/check-eligibility": {
+    "/v1/check-eligibility": {
       "post": {
         "summary": "Eligibility check",
         "description": "This route will receive the electricity bill details and check the customer eligibility",
