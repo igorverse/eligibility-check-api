@@ -28,7 +28,7 @@ const handle = (req, res) => {
   ) {
     return res.json({
       elegivel: false,
-      razoesInelegibidade: [
+      razoesInelegibilidade: [
         ...determineIneligibilityReasons(
           eligibleConsumptionClass,
           eligibleTarfiffModallity,
