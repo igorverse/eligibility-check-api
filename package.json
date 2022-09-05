@@ -12,6 +12,7 @@
   "author": "Igor dos Santos Silva",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^16.0.2",
     "express": "^4.18.1",
     "swagger-ui-express": "^4.5.0"
   },

@@ -1,8 +1,10 @@
 const express = require('express')
+const dotenv = require('dotenv')
 const swaggerUi = require('swagger-ui-express')
 const documentation = require('./openapi.json')
 const eligibilityCheckRouter = require('./routes/eligibilityCheck.routes')
 
+dotenv.config()
 const PORT = process.env.PORT || 4242
 
 const app = express()
