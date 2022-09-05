@@ -42,7 +42,8 @@ const isValidEligibilityCheckBody = (body) => {
     historicoDeConsumo.length >= 3 &&
     historicoDeConsumo.length <= 12 &&
     historicoDeConsumo.every(
-      (electricityConsumption) => electricityConsumption >= 0
+      (electricityConsumption) =>
+        electricityConsumption >= 0 && electricityConsumption <= 9999
     )
 
   if (!isValidConsumptionHistory) return false

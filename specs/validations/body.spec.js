@@ -100,7 +100,7 @@ describe('invalid bodies', () => {
     expect(validations.isValidEligibilityCheckBody(invalidBody)).toBe(false)
   })
 
-  it('should be an invalid eligibity check body, because of invalid consumption history values', () => {
+  it('should be an invalid eligibity check body, because of negative consumption history values', () => {
     const invalidBody = {
       numeroDoDocumento: '14041737706',
       tipoDeConexao: 'bifasico',
@@ -115,14 +115,14 @@ describe('invalid bodies', () => {
     expect(validations.isValidEligibilityCheckBody(invalidBody)).toBe(false)
   })
 
-  it('should be an invalid eligibity check body, because of invalid consumption history values', () => {
+  it('should be an invalid eligibity check body, because of consumption history with over max values', () => {
     const invalidBody = {
       numeroDoDocumento: '14041737706',
       tipoDeConexao: 'bifasico',
       classeDeConsumo: 'comercial',
       modalidadeTarifaria: 'convencional',
       historicoDeConsumo: [
-        3878, 9760, 5976, 2797, -2481, 5731, -7538, 4392, 7859, 4160, 6941,
+        3878, 9760, 5976, 2797, 10000, 5731, 9999999, 4392, 7859, 4160, 6941,
         4597,
       ],
     }
